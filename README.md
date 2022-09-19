@@ -14,3 +14,9 @@ You may add several titles and description about the project and how do you work
 Include a class diagram for your project here with short discrition
 
 ![Our Awsome Project Class Diagram](/images/class-diagram.png)
+
+
+## Screen Capture
+Here some screen capture from our project:
+
+![Main menu](/images/capture.png)
