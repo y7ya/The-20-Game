@@ -19,4 +19,4 @@ Include a class diagram for your project here with short discrition
 ## Screen Capture
 Here some screen capture from our project:
 
-![Main menu](/images/capture.png)
+![Main menu](/images/capture01.png)
