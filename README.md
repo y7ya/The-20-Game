@@ -1,22 +1,22 @@
-# CPIT305 Course Project
-Introduction about your project, describe the problem, and your solution. Project implementation should follow Object-Orianted programming structure.
 
-## Group Members
-- First Member
-- Second one
-- ...
+# Restaurant Management System👨‍🍳🍴
+Many restaurant managers and employees suffer from paperwork because it is a heavy, inaccurate, and complex job, so our goal in this project is to develop a restaurant management system that collects data and improves employee performance, by recording each order precisely in this system so managers can easily manage and collect required data.
 
-## More details about your project
-You may add several titles and description about the project and how do you work as group and role of each member. Also, include some details about how to use the project and other details
+  
 
-
-## Class Diagram
-Include a class diagram for your project here with short discrition
-
-![Our Awsome Project Class Diagram](/images/class-diagram.png)
+## Project Members
+- [Yahya Abdullah Majrashi](https://github.com/y7ya)
+- [Faisal fawaz Almadafei](https://github.com/FaisalAlmadafei)
+- [Abdullah Saad Alharthi](https://github.com/abdullahsaad2000)
 
 
-## Screen Capture
-Here some screen capture from our project:
+## in Detail:
+First of all, in our system, we will start by creating restaurant data such as restaurant owner,  employees, managers, menu, and branches. Each branch has several employees and a manager.
 
-![Main menu](/images/capture01.png)
+#### #Owner:
+The owner is responsible for several features such as managing all branches' . 
+#### #Manger
+Each manager can access the data belonging to the branch that he manages and can use serval functions such as calculating monthly revenue, collecting data about the best seller order, and collecting data about the fewer seller orders in the menu.
+#### #Employee
+Each employee also can access the system to add, update, and cancel an order.
+
