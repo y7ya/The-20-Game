@@ -16,6 +16,7 @@ public class Interface {
         System.out.println();
         System.out.println("To Start Press Anything:");
         App.input.nextLine();
+        Interface.auth();
 
     }
 
