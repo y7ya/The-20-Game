@@ -2,6 +2,10 @@ package server.Handler;
 
 import java.util.StringTokenizer;
 
+import server.App;
+import server.game.PlayWithComputer;
+import server.player.Player;
+
 public class RequestHandler {
 
     public static String handleRequest(String line) {
@@ -11,9 +15,11 @@ public class RequestHandler {
                 return login(token.nextToken().trim(), token.nextToken().trim());
             case "register":
                 return register(token.nextToken().trim(), token.nextToken().trim());
-
             case "game_mood":
                 return game_mood(token.nextToken().trim());
+            case "move":
+                return "";
+                // return move();
             case "score_table":
                 return score_table();
 
@@ -39,6 +45,10 @@ public class RequestHandler {
                 System.out.println("online");
                 return "";
             case "with_computer":
+                Player player1 = new Player(5, "Test");
+                PlayWithComputer game =  new PlayWithComputer(player1);
+                App.games.add(game);
+
                 System.out.println("with_computer");
                 return "";
             case "with_friend":

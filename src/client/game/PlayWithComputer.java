@@ -1,8 +1,8 @@
 package client.game;
 
 import client.*;
-import client.player.Computer;
-import client.player.Player;
+import server.player.Computer;
+import server.player.Player;
 
 public class PlayWithComputer extends Game {
     private Computer computer = new Computer();

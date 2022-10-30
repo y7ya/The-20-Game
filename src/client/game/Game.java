@@ -2,7 +2,7 @@ package client.game;
 
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
-import client.player.Player;
+import server.player.Player;
 
 public class Game {
     

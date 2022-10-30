@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 import client.game.Game;
 import client.game.PlayWithComputer;
-import client.player.Computer;
-import client.player.Player;
+import server.player.Computer;
+import server.player.Player;
 
 public class App {
     public static Scanner input = new Scanner(System.in);

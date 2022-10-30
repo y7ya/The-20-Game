@@ -6,11 +6,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import server.Handler.Client;
+import server.game.Game;
 
 public class App {
     private final static int PORT = 8585;
     private static ServerSocket serverSocket;
     private static ArrayList<Client> clients = new ArrayList<>();
+    public static ArrayList<Game> games = new ArrayList<>();
 
     
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package client.player;
+package server.player;
 
 public class Player {
     private int id;

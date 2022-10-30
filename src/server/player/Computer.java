@@ -1,4 +1,4 @@
-package client.player;
+package server.player;
 
 public class Computer extends Player{
     public Computer(){
