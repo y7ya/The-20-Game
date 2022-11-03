@@ -21,81 +21,10 @@ public class App {
         Socket s = new Socket("localhost",8585);
         BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
-        String user_choice = "";
-        String user_name= "";
-        String user_password= "";
-     //   writer.write("login, Abdullah, 123");
-       // writer.newLine();
-        // writer.flush();
-      
-       
-       
-        while (true){
 
-            System.out.println("choose a number of the following: ");
-
-            System.out.println("1. Login ");
-            System.out.println("2. Register");
-           
-            user_choice = input.nextLine() ; 
-
-            if (user_choice.equalsIgnoreCase("1")){
-                System.out.print("please enter username:");
-                user_name= input.nextLine();
-                System.out.print("please enter password:");
-                user_password= input.nextLine();
-                writer.write("login," + user_name +","+ user_password);
-                writer.newLine();
-                writer.flush();
-        
-           break;
-         }
-
-            else if (user_choice.equalsIgnoreCase("2")){
-                System.out.print("please enter username:");
-                user_name= input.nextLine();
-                System.out.print("please enter password:");
-                user_password= input.nextLine();
-                writer.write("Register," + user_name +","+ user_password);
-                writer.newLine();
-                writer.flush();
-
-            } 
-          
-        }
-
-        while (true) {
-
-            System.out.println("choose of the following: ");
-
-            System.out.println("1. Play Online ");
-            System.out.println("2. Play with Computer");
-            System.out.println("3. Score Table");
-            user_choice = input.nextLine(); 
-
-            if (user_choice.equalsIgnoreCase("1")){
-                writer.write("game_mood," + "online");
-                writer.newLine();
-                writer.flush();
-           break;
-         }
-
-            else if (user_choice.equalsIgnoreCase("2")){
-                writer.write("game_mood," + "offline");
-                writer.newLine();
-                writer.flush();
-           break;
-
-            } 
-            
-
-
-            
-        }
-
-      //  writer.write("login");
-        //writer.newLine();
-       // writer.flush();
+       writer.write("new_game");
+        writer.newLine();
+       writer.flush();
     //Interface.welcome();
       while (true) {
             String line = reader.readLine();

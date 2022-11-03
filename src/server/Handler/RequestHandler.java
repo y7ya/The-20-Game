@@ -2,6 +2,8 @@ package server.Handler;
 
 import java.util.StringTokenizer;
 
+import org.json.JSONObject;
+
 import server.App;
 import server.game.PlayWithComputer;
 import server.player.Player;
@@ -9,14 +11,14 @@ import server.player.Player;
 public class RequestHandler {
 
     public static String handleRequest(String line) {
-        StringTokenizer token = new StringTokenizer(line, ",");
-        switch (token.nextToken().toLowerCase().trim()) {
+        JSONObject data = new JSONObject(line);
+        switch (data.getString("request").toLowerCase()) {
             case "login":
-                return login(token.nextToken().trim(), token.nextToken().trim());
+                return login(data.getString("username"), data.getString("password"));
             case "register":
-                return register(token.nextToken().trim(), token.nextToken().trim());
+                return register(data.getString("username"), data.getString("password"));
             case "game_mood":
-                return game_mood(token.nextToken().trim());
+                return game_mood(data.getString("game_mood"));
             case "move":
                 return "";
                 // return move();
@@ -45,11 +47,7 @@ public class RequestHandler {
                 System.out.println("online");
                 return "";
             case "with_computer":
-                Player player1 = new Player(5, "Test");
-                PlayWithComputer game =  new PlayWithComputer(player1);
-                App.games.add(game);
-
-                System.out.println("with_computer");
+            App.newGame();
                 return "";
             case "with_friend":
                 return "";

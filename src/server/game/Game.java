@@ -17,17 +17,21 @@ public class Game {
     protected int last_player_steps = 0;
 
     Game(Player player1, Player Player2) {
-        this.game_counter++;
-        this.id = this.game_counter;
+        Game.game_counter++;
+        this.id = Game.game_counter;
         this.player1 = player1;
         this.player2 = player2;
     }
 
     Game(Player player1) {
-        this.game_counter++;
-        this.id = this.game_counter;
+        Game.game_counter++;
+        this.id = Game.game_counter;
         this.player1 = player1;
         this.player2 = null;
+    }
+
+    public int getID(){
+        return this.id;
     }
 
     public void move(int steps) {

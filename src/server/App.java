@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 import server.Handler.Client;
 import server.game.Game;
+import server.game.PlayWithComputer;
+import server.player.Player;
+import org.json.*;
 
 public class App {
     private final static int PORT = 8585;
@@ -14,8 +17,15 @@ public class App {
     private static ArrayList<Client> clients = new ArrayList<>();
     public static ArrayList<Game> games = new ArrayList<>();
 
+    public static int newGame(){
+        Player player1 = new Player(5, "Test");
+        PlayWithComputer game =  new PlayWithComputer(player1);
+        App.games.add(game);
+        return game.getID();
+    }
     
     public static void main(String[] args) {
+        JSONObject obj = new JSONObject();
         try {
             serverSocket = new ServerSocket(PORT);    
         } catch (IOException e) {}

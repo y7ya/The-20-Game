@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.net.Socket;
 
-import server.Player;
+import server.player.Player;
 
 public class Client {
     private Socket socket;
