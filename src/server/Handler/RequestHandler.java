@@ -1,5 +1,6 @@
 package server.Handler;
 
+import java.sql.SQLException;
 import java.util.StringTokenizer;
 
 import org.json.JSONObject;
@@ -30,15 +31,25 @@ public class RequestHandler {
                 return "Command not found";
         }
     }
-
-    private static String login(String username, String password) {
-        System.out.println("hello from login");
-        return "LogIn";
+    
+    private static String register(String username, String password){
+        try {
+            App.DB.register(username, password);
+            System.out.println("registered");
+        } catch (SQLException e) {}
+        return "Register";
     }
 
-    private static String register(String username, String password) {
-        System.out.println("hello from register");
-        return "Register";
+    private static String login(String username, String password) {
+        try {
+            Boolean x = App.DB.login(username, password);
+            if(x){
+                System.out.println("loggedin");
+            }else{
+                System.out.println("wrong creds");
+            }
+        } catch (SQLException e) {}
+        return "LogIn";
     }
 
     private static String game_mood(String mood) {
@@ -47,7 +58,7 @@ public class RequestHandler {
                 System.out.println("online");
                 return "";
             case "with_computer":
-            App.newGame();
+            // App.newGame();
                 return "";
             case "with_friend":
                 return "";
