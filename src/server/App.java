@@ -23,7 +23,6 @@ public class App {
     public static Database DB;
     
     public static Client client_by_socket(Socket socket){
-
         for(Client client: clients){
             if(client.get_socket() == socket) return client;
         }
@@ -35,7 +34,7 @@ public class App {
             case "with_computer":
                 PlayWithComputer game =  new PlayWithComputer(client_by_socket(socket).get_player());
                 App.games.add(game);
-                break;
+                return game.getID();
         
             default:
                 break;

@@ -15,14 +15,30 @@ import server.player.Player;
 
 public class Database {
     private Connection conn;
+    private final int PORT = 8111;
+    private final String HOST = "localhost";
+    private final String DB_NAME = "20game";
+    private final String USERNAME = "root";
+    private final String PASSWORD = "";
 
     public Database() {
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://localhost:8111/20game","root","");
+            this.conn = DriverManager.getConnection("jdbc:mysql://"+ HOST +":"+ PORT +"/"+ DB_NAME ,USERNAME,PASSWORD);
         } catch (SQLException e) {
             System.out.println("can't connect to database");
             System.exit(0);
         }
+    }
+
+    public boolean username_exist(String username) throws SQLException{
+        PreparedStatement ps = this.conn.prepareStatement("SELECT * FROM users where username=?");
+        ps.setString(1, username);
+        ResultSet rs =  ps.executeQuery();
+        if(rs.next()){
+            return true;
+        }
+        return false;
+
     }
 
     public String[] register(String username, String password) throws SQLException{
@@ -44,11 +60,7 @@ public class Database {
         ps.setInt(1, player1.getId());
         int n = ps.executeUpdate();
         if(n > 0){
-            // if(ps.getGeneratedKeys().next()){
-            //     int id = ps.getGeneratedKeys().getInt("id");  
-            //     return id;
-            // }
-            java.sql.ResultSet generatedKeys = ps.getGeneratedKeys();
+            ResultSet generatedKeys = ps.getGeneratedKeys();
             if ( generatedKeys.next() ) {
                 return generatedKeys.getInt(1);
             }
