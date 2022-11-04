@@ -9,6 +9,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.net.Socket;
 
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
+
 import server.player.Player;
 
 public class Client {
@@ -29,6 +31,22 @@ public class Client {
             new Receiver(this.socket, this.reader,this.sender).start();
         } catch (IOException e) {
         }
+    }
+
+    public Socket get_socket(){
+        return this.socket;
+    }
+    
+    public Player get_player(){
+        return this.player;
+    }
+
+    public void set_player(Player player){
+        this.player = player;
+    }
+
+    public void print_data(){
+        System.out.printf("username: %s    id: %s",this.player.getUsername(),String.valueOf(this.player.getId()));
     }
 
 }

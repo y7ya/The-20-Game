@@ -1,12 +1,14 @@
 package server.game;
 
+import java.sql.SQLException;
+
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
+import server.App;
 import server.player.Player;
 
 public class Game {
    // critical section  
-   private static int game_counter = 0;
     private int id;
     private Player player1;
     private Player player2;
@@ -16,18 +18,15 @@ public class Game {
     private int pointer = 0;
     protected int last_player_steps = 0;
 
-    Game(Player player1, Player Player2) {
-        Game.game_counter++;
-        this.id = Game.game_counter;
-        this.player1 = player1;
-        this.player2 = player2;
-    }
-
     Game(Player player1) {
-        Game.game_counter++;
-        this.id = Game.game_counter;
-        this.player1 = player1;
-        this.player2 = null;
+        try {
+            this.id = App.DB.newGame(player1);
+            this.player1 = player1;
+            this.player2 = null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(this.id);
     }
 
     public int getID(){
@@ -68,6 +67,9 @@ public class Game {
     }
 
     public void setPlayer2(Player player2) {
+        try {
+            App.DB.addPlayer2(this,player2);
+        } catch (SQLException e) {}
         this.player2 = player2;
     }
 

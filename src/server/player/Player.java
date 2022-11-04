@@ -8,8 +8,12 @@ public class Player {
         this.id = id;
         this.username = username;
     }
-
+    
     public String getUsername() {
         return username;
+    }
+    
+    public int getId() {
+        return id;
     }
 }

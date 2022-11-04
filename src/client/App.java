@@ -25,16 +25,33 @@ public class App {
         BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 
-        JSONObject data = new JSONObject();
-        data.put("request", "login");
-        data.put("username", "yahya");
-        data.put("password", "555");
+        JSONObject login1 = new JSONObject();
+        login1.put("request", "login");
+        login1.put("username", "testAcc");
+        login1.put("password", "555");
 
-        writer.write(data.toString());
+        System.out.println(login1.toString());
+        writer.write(login1.toString());
         writer.newLine();
         writer.flush();
+        
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
 
-        System.out.println("data sent");
+
+        JSONObject newGame = new JSONObject();
+        newGame.put("request", "game_mood");
+        newGame.put("value", "with_computer");
+
+        System.out.println(newGame.toString());
+        writer.write(newGame.toString());
+        writer.newLine();
+        writer.flush();
+        System.out.println("data sent 0");
+
+
         // Interface.welcome();
         // while (true) {
         // String line = reader.readLine();

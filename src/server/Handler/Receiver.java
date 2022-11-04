@@ -22,7 +22,7 @@ public class Receiver extends Thread {
         String line;
         try{
             while ((line = reader.readLine()) != null) {
-                sender.send(RequestHandler.handleRequest(line));
+                sender.send(RequestHandler.handleRequest(line,socket));
             }
         }catch(IOException e){}catch(NullPointerException e){}
     }
