@@ -18,6 +18,7 @@ public class Interface {
         App.input.nextLine();
         Interface.auth();
 
+   
     }
 
     public static void auth() {
@@ -189,4 +190,31 @@ public class Interface {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+    public static void winning(){
+System.out.println("_ ___     __          __          __         _ _ _ ");
+System.out.println("  ( | ) \\   / /          \\ \\        / /        | ( | )");
+System.out.println("   V V \\ \\_/ /__  _   _   \\ \\  /\\  / /__  _ __ | |V V ");
+System.out.println("        \\   / _ \\| | | |   \\ \\/  \\/ / _ \\| '_ \\| | ");
+System.out.println("         | | (_) | |_| |    \\  /\\  / (_) | | | |_|");
+System.out.println("         |_|\\___/ \\__,_|     \\/  \\/ \\___/|_| |_(_) ");
+
+    }
+    public static void losing(){
+        System.out.println(" _ _  _____                         ____                 _ _ _");
+System.out.println("  ( | )/ ____|                       / __ \\               | ( | )");
+System.out.println("   V V| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| |V V ");
+System.out.println("      | | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__| |    ");
+System.out.println("      | |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |  |_|    ");
+System.out.println("       \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  (_) ");
+   
+
+}
+public static void Score_Table(){
+    System.out.println("   _ _  _____                      _______    _     _     _ _ ");
+    System.out.println("  ( | )/ ____|                    |__   __|  | |   | |   ( | )");
+    System.out.println("   V V| (___   ___ ___  _ __ ___     | | __ _| |__ | | ___V V ");
+    System.out.println("       \\___ \\ / __/ _ \\| '__/ _ \\    | |/ _` | '_ \\| |/ _ \\   ");
+    System.out.println("       ____) | (_| (_) | | |  __/    | | (_| | |_) | |  __/   ");
+    System.out.println("      |_____/ \\___\\___/|_|  \\___|    |_|\\__,_|_.__/|_|\\___|   ");
+}
 }
