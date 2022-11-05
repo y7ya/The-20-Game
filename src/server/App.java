@@ -28,19 +28,38 @@ public class App {
         }
         return null;
     }
+
+    public static Game addToRandomGame(Socket socket){
+        for(Game game: games){
+            if(!game.hasPlayer2()){
+                game.setPlayer2(client_by_socket(socket).get_player());
+                return game;
+            }
+        }
+        return newGame("", socket);
+    }
+
+    public static Game game_by_game_id(int id){
+        for (Game game : games) {
+            if(game.getID() == id){
+                return game;
+            }
+        }
+        return null;
+    }
     
-    public static int newGame(String game_mood,Socket socket){
+    public static Game newGame(String game_mood,Socket socket){
+        Game game = null;
         switch (game_mood) {
             case "with_computer":
-                PlayWithComputer game =  new PlayWithComputer(client_by_socket(socket).get_player());
+                game =  new PlayWithComputer(client_by_socket(socket).get_player());
                 App.games.add(game);
-                return game.getID();
-        
+                return game;
             default:
-                break;
+                game =  new Game(client_by_socket(socket).get_player());
+                App.games.add(game);
+                return game;
         }
-        // return game.getID();
-        return 0;
     }
     
     public static void main(String[] args) {
@@ -58,5 +77,8 @@ public class App {
 
             
         }
+    }
+
+    public static void end_game(Game game) {
     }
 }

@@ -13,6 +13,7 @@ public class PlayWithComputer extends Game {
     }
 
 
+    //
     public void computerMove() {
         int steps = computer.play(get_max_steps());
         update_last_player_steps(steps);

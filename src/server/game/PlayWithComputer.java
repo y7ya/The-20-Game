@@ -1,6 +1,6 @@
 package server.game;
 
-import client.*;
+import server.*;
 import server.player.Computer;
 import server.player.Player;
 
@@ -10,6 +10,7 @@ public class PlayWithComputer extends Game {
     public PlayWithComputer(Player player) {
         super(player);
         super.setPlayer2(computer);
+        super.setWithComputer();
     }
 
 

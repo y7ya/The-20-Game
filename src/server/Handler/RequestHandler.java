@@ -5,7 +5,9 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
+import client.game.PlayWithComputer;
 import server.App;
+import server.game.Game;
 import server.player.Player;
 public class RequestHandler {
 
@@ -19,8 +21,12 @@ public class RequestHandler {
                 return registerHandler(data.getString("username"), data.getString("password"), socket);
             case "game_mood":
                 return game_moodHandler(data.getString("value"), socket);
+            // case "join":
+            //     return joinHandler(data.getString("type"),socket);
             case "move":
-                return moveHandler(data.getString("game_id"),data.getString("move"),socket);
+                return moveHandler(data.getInt("game_id"),data.getInt("move"),socket);
+            case "computer_move":
+                return computer_moveHandler(data.getInt("game_id"),socket);
             case "score_table":
                 return score_table();
 
@@ -29,6 +35,18 @@ public class RequestHandler {
                 return "Command not found";
         }
     }
+
+    // private static int joinHandler(String type, Socket socket) {
+    //     switch (type.toLowerCase().trim()) {
+    //         case "random":
+    //             Game game = App.addToRandomGame(socket);
+    //             return ResponseHandler.joinGame(game,socket);
+    //         case "wFriend":
+    //             return -1;
+    //         default:
+    //             return -1;
+    //     }
+    // }
 
     private static String registerHandler(String username, String password, Socket socket) {
         if(username == "computer") return ResponseHandler.wrongCreds(); 
@@ -67,13 +85,14 @@ public class RequestHandler {
     }
 
     private static String game_moodHandler(String mood, Socket socket) {
+        Game game = null;
         switch (mood.toLowerCase().trim()) {
-            case "online":
-                System.out.println("online");
-                return "";
+            case "randomly":
+                game = App.newGame("randomly", socket);
+                return ResponseHandler.game_created(game.getID());
             case "with_computer":
-                int game_id = App.newGame("with_computer", socket);
-                return ResponseHandler.game_created(game_id);
+                game = App.newGame("with_computer", socket);
+                return ResponseHandler.game_created(game.getID());
             case "with_friend":
                 return "";
             default:
@@ -81,10 +100,22 @@ public class RequestHandler {
         }
     }
 
-    public static String moveHandler(String game_id,String move,Socket socket){
+    public static String moveHandler(int game_id,int move,Socket socket){
+        Game game = App.game_by_game_id(game_id);
+        if(game.getPlayerTurn() != App.client_by_socket(socket).get_player()) return ResponseHandler.error("error","Not Your Turn");
+        if(game.get_max_steps() < move || move <= 0) return ResponseHandler.error("error","wrong input");
+        game.move(move);
+        return ResponseHandler.moved(game,move);
+    }
 
-        // return ResponseHandler.moved();
-        return "";
+    public static String computer_moveHandler(int game_id,Socket socket){
+        Game game = App.game_by_game_id(game_id);
+        if(game.getPlayerTurn().getId() != 0) return ResponseHandler.error("error","Not Computer Turn");
+        int steps = game.computer_move();
+        if(game.game_end()){
+            App.end_game(game);
+        }
+        return ResponseHandler.computer_moved(game,steps);
     }
 
     private static String score_table() {

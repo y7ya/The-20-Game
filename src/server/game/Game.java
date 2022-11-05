@@ -11,14 +11,16 @@ public class Game {
    // critical section  
     private int id;
     private Player player1;
-    private Player player2;
+    private Player player2 = null;
     private int turn = 1;
     private int winning_score = 20;
     private int max_steps = 2;
     private int pointer = 0;
     protected int last_player_steps = 0;
+    private boolean isWithComputer = false;
 
-    Game(Player player1) {
+
+    public Game(Player player1) {
         try {
             this.id = App.DB.newGame(player1);
             this.player1 = player1;
@@ -33,8 +35,30 @@ public class Game {
         return this.id;
     }
 
+    public void setWithComputer(){
+        this.isWithComputer = true;
+    }
+
+    public boolean isWithComputer(){
+        return this.isWithComputer;
+    }
+
     public void move(int steps) {
         this.pointer += steps;
+        nextTurn();
+    }
+
+    
+    public int computer_move() {
+        int steps = (int)((Math.random() * (get_max_steps()))+1);
+        move(steps);
+        return steps;
+    }
+
+    
+
+    public boolean hasPlayer2(){
+        return player2 != null;
     }
 
     public void nextTurn() {

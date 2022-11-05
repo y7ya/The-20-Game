@@ -131,10 +131,6 @@ public class Interface {
         }
     }
 
-    public void playWithAI(){
-
-    }
-
 
     public static void game(Game game){
         System.out.printf(

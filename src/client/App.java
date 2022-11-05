@@ -10,10 +10,7 @@ import java.util.Scanner;
 
 import org.json.JSONObject;
 
-import client.game.Game;
-import client.game.PlayWithComputer;
-import server.player.Computer;
-import server.player.Player;
+import com.mysql.cj.protocol.Message;
 
 public class App {
     public static Scanner input = new Scanner(System.in);
@@ -34,23 +31,101 @@ public class App {
         writer.write(login1.toString());
         writer.newLine();
         writer.flush();
-        
+
+        String line;
+        while (true) {
+            line = reader.readLine();
+            System.out.println(line);
+            break;
+        }
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
         }
 
+        JSONObject play = new JSONObject();
+        play.put("request", "game_mood");
+        play.put("value", "with_computer");
 
-        JSONObject newGame = new JSONObject();
-        newGame.put("request", "game_mood");
-        newGame.put("value", "with_computer");
-
-        System.out.println(newGame.toString());
-        writer.write(newGame.toString());
+        System.out.println(play.toString());
+        writer.write(play.toString());
         writer.newLine();
         writer.flush();
-        System.out.println("data sent 0");
 
+        int game_id;
+        while (true) {
+            line = reader.readLine();
+            JSONObject data = new JSONObject(line);
+            game_id = data.getInt("game_id");
+            break;
+        }
+
+        System.out.println(game_id);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
+
+        while (true) {
+
+            
+
+            JSONObject move = new JSONObject();
+            move.put("request", "move");
+            move.put("game_id", game_id);
+            move.put("move", Integer.parseInt(input.nextLine()));
+
+            System.out.println(move.toString());
+            writer.write(move.toString());
+            writer.newLine();
+            writer.flush();
+
+            while (true) {
+                line = reader.readLine();
+                System.out.println(line);
+
+                JSONObject data = new JSONObject(line);
+                if(data.getString("request").equalsIgnoreCase("error")){
+                    System.out.println(data.getString("message"));
+                    break;
+                }
+                if(data.getBoolean("game_isEnd") == true){
+                    System.out.println("game end");
+                    break;
+                }
+                break;
+            }
+            System.out.println("data sent");
+
+
+            JSONObject cmove = new JSONObject();
+            cmove.put("request", "computer_move");
+            cmove.put("game_id", game_id);
+
+            System.out.println(cmove.toString());
+            writer.write(cmove.toString());
+            writer.newLine();
+            writer.flush();
+
+
+            while (true) {
+                line = reader.readLine();
+                System.out.println(line);
+                JSONObject data = new JSONObject(line);
+                if(data.getString("request").equalsIgnoreCase("error")){
+                    System.out.println(data.getString("message"));
+                    break;
+                }
+                if(data.getBoolean("game_isEnd") == true){
+                    System.out.println("game end");
+                    break;
+                }
+                break;
+            }
+
+        }
 
         // Interface.welcome();
         // while (true) {
