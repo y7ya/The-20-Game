@@ -18,7 +18,6 @@ public class Interface {
         App.input.nextLine();
         Interface.auth();
 
-   
     }
 
     public static void auth() {
@@ -43,23 +42,23 @@ public class Interface {
         }
     }
 
-    public static void register(){
+    public static void register() {
         clearScreen();
-        System.out.println("\n  _____            _     _            \n |  __ \\          (_)   | |           \n | |__) |___  __ _ _ ___| |_ ___ _ __ \n |  _  // _ \\/ _` | / __| __/ _ \\ '__|\n | | \\ \\  __/ (_| | \\__ \\ ||  __/ |   \n |_|  \\_\\___|\\__, |_|___/\\__\\___|_|   \n              __/ |                   \n             |___/                    ");
+        System.out.println(
+                "\n  _____            _     _            \n |  __ \\          (_)   | |           \n | |__) |___  __ _ _ ___| |_ ___ _ __ \n |  _  // _ \\/ _` | / __| __/ _ \\ '__|\n | | \\ \\  __/ (_| | \\__ \\ ||  __/ |   \n |_|  \\_\\___|\\__, |_|___/\\__\\___|_|   \n              __/ |                   \n             |___/                    ");
         System.out.println();
         System.out.println();
         System.out.println();
         String username;
         String password;
-        
-        
+
         // TODO: name validation
         while (true) {
             System.out.printf("> Enter Your username:");
             username = App.input.nextLine();
             break;
         }
-        
+
         // TODO: password validation
         while (true) {
             System.out.printf("> Enter Your password:");
@@ -67,78 +66,74 @@ public class Interface {
             break;
         }
 
-
         System.out.println("|============================================|");
         System.out.println("|           Registered Successfully          |");
         System.out.println("|============================================|");
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
 
     }
-    
-    
-    public static void login(){
+
+    public static void login() {
         clearScreen();
-        System.out.println("\n  _                 _       \n | |               (_)      \n | |     ___   __ _ _ _ __  \n | |    / _ \\ / _` | | '_ \\ \n | |___| (_) | (_| | | | | |\n |______\\___/ \\__, |_|_| |_|\n               __/ |        \n              |___/         ");
+        System.out.println(
+                "\n  _                 _       \n | |               (_)      \n | |     ___   __ _ _ _ __  \n | |    / _ \\ / _` | | '_ \\ \n | |___| (_) | (_| | | | | |\n |______\\___/ \\__, |_|_| |_|\n               __/ |        \n              |___/         ");
         System.out.println();
         System.out.println();
         System.out.println();
         String username;
         String password;
-        
+
         while (true) {
             System.out.printf("> Enter Your username:");
             username = App.input.nextLine();
             break;
         }
-        
+
         while (true) {
             System.out.printf("> Enter Your password:");
             password = App.input.nextLine();
             break;
         }
 
-
         System.out.println("|============================================|");
         System.out.println("|           Loggedin Successfully            |");
         System.out.println("|============================================|");
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
 
     }
 
-    public static void home(){
+    public static void home() {
         clearScreen();
-        System.out.printf("\n   _ _ _______ _            ___   ___     _____                     _ _ \n  ( | )__   __| |          |__ \\ / _ \\   / ____|                   ( | )\n   V V   | |  | |__   ___     ) | | | | | |  __  __ _ _ __ ___   ___V V \n         | |  | '_ \\ / _ \\   / /| | | | | | |_ |/ _` | '_ ` _ \\ / _ \\   \n         | |  | | | |  __/  / /_| |_| | | |__| | (_| | | | | | |  __/   \n         |_|  |_| |_|\\___| |____|\\___/   \\_____|\\__,_|_| |_| |_|\\___|   \n                                                                        \n                                                                        \n\n");
+        System.out.printf(
+                "\n   _ _ _______ _            ___   ___     _____                     _ _ \n  ( | )__   __| |          |__ \\ / _ \\   / ____|                   ( | )\n   V V   | |  | |__   ___     ) | | | | | |  __  __ _ _ __ ___   ___V V \n         | |  | '_ \\ / _ \\   / /| | | | | | |_ |/ _` | '_ ` _ \\ / _ \\   \n         | |  | | | |  __/  / /_| |_| | | |__| | (_| | | | | | |  __/   \n         |_|  |_| |_|\\___| |____|\\___/   \\_____|\\__,_|_| |_| |_|\\___|   \n                                                                        \n                                                                        \n\n");
 
-        System.out.printf("\t%s\n","[1]> Play With Computer");
-        System.out.printf("\t%s\n","[2]> Join Game Randomly");
-        System.out.printf("\t%s\n","[3]> Play With Friend");
+        System.out.printf("\t%s\n", "[1]> Play With Computer");
+        System.out.printf("\t%s\n", "[2]> Join Game Randomly");
         String input;
         while (true) {
             System.out.printf("> Select Game Mood:");
             input = App.input.nextLine();
-            if(input.equals("1")){
+            if (input.equals("1")) {
                 break;
-            }else if(input.equals("2")){
+            } else if (input.equals("2")) {
                 break;
-            }else if(input.equals("3")){
-                break;
-            }else{
-                System.out.printf("\n%s\n","Wrong select");
+            } else {
+                System.out.printf("\n%s\n", "Wrong select");
             }
         }
     }
 
-
-    public static void game(Game game){
+    public static void game(Game game) {
         System.out.printf(
                 "\n   _ _ _______ _            ___   ___     _____                     _ _ \n  ( | )__   __| |          |__ \\ / _ \\   / ____|                   ( | )\n   V V   | |  | |__   ___     ) | | | | | |  __  __ _ _ __ ___   ___V V \n         | |  | '_ \\ / _ \\   / /| | | | | | |_ |/ _` | '_ ` _ \\ / _ \\   \n         | |  | | | |  __/  / /_| |_| | | |__| | (_| | | | | | |  __/   \n         |_|  |_| |_|\\___| |____|\\___/   \\_____|\\__,_|_| |_| |_|\\___|   \n                                                                        \n                                                                        \n\n");
 
-
-        if(game.getTurn() == 1){
+        if (game.getTurn() == 1) {
             String input;
             while (true) {
                 System.out.println("1 or 2 Steps? :");
@@ -150,19 +145,19 @@ public class Interface {
                     System.out.println("Wrong select");
                 }
             }
-            System.out.printf("%s have played %s",game.getPlayerTurn().getUsername(),input);
+            System.out.printf("%s have played %s", game.getPlayerTurn().getUsername(), input);
             game.nextTurn();
-        }else{
-            System.out.printf("%s has played %s",game.getPlayerTurn().getUsername(),game.get_last_player_steps());
+        } else {
+            System.out.printf("%s has played %s", game.getPlayerTurn().getUsername(), game.get_last_player_steps());
             game.nextTurn();
         }
         loadBar(game.get_pointer());
 
     }
 
-    public static void loadBar(int len){
+    public static void loadBar(int len) {
         System.out.println();
-        for (int i = 0; i < ((len*3)+4); i++) {
+        for (int i = 0; i < ((len * 3) + 4); i++) {
             System.out.print("-");
         }
         System.out.println();
@@ -170,17 +165,16 @@ public class Interface {
         System.out.print("| ");
 
         for (int i = 1; i <= len; i++) {
-            if(i < 10){
+            if (i < 10) {
                 System.out.print(" ");
             }
             System.out.print(i);
             System.out.print(" ");
         }
 
-
         System.out.println(" |");
-        
-        for (int i = 0; i < ((len*3)+4); i++) {
+
+        for (int i = 0; i < ((len * 3) + 4); i++) {
             System.out.print("-");
         }
         System.out.println();
@@ -190,31 +184,33 @@ public class Interface {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    public static void winning(){
-System.out.println("_ ___     __          __          __         _ _ _ ");
-System.out.println("  ( | ) \\   / /          \\ \\        / /        | ( | )");
-System.out.println("   V V \\ \\_/ /__  _   _   \\ \\  /\\  / /__  _ __ | |V V ");
-System.out.println("        \\   / _ \\| | | |   \\ \\/  \\/ / _ \\| '_ \\| | ");
-System.out.println("         | | (_) | |_| |    \\  /\\  / (_) | | | |_|");
-System.out.println("         |_|\\___/ \\__,_|     \\/  \\/ \\___/|_| |_(_) ");
+
+    public static void winning() {
+        System.out.println("_ ___     __          __          __         _ _ _ ");
+        System.out.println("  ( | ) \\   / /          \\ \\        / /        | ( | )");
+        System.out.println("   V V \\ \\_/ /__  _   _   \\ \\  /\\  / /__  _ __ | |V V ");
+        System.out.println("        \\   / _ \\| | | |   \\ \\/  \\/ / _ \\| '_ \\| | ");
+        System.out.println("         | | (_) | |_| |    \\  /\\  / (_) | | | |_|");
+        System.out.println("         |_|\\___/ \\__,_|     \\/  \\/ \\___/|_| |_(_) ");
 
     }
-    public static void losing(){
-        System.out.println(" _ _  _____                         ____                 _ _ _");
-System.out.println("  ( | )/ ____|                       / __ \\               | ( | )");
-System.out.println("   V V| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| |V V ");
-System.out.println("      | | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__| |    ");
-System.out.println("      | |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |  |_|    ");
-System.out.println("       \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  (_) ");
-   
 
-}
-public static void Score_Table(){
-    System.out.println("   _ _  _____                      _______    _     _     _ _ ");
-    System.out.println("  ( | )/ ____|                    |__   __|  | |   | |   ( | )");
-    System.out.println("   V V| (___   ___ ___  _ __ ___     | | __ _| |__ | | ___V V ");
-    System.out.println("       \\___ \\ / __/ _ \\| '__/ _ \\    | |/ _` | '_ \\| |/ _ \\   ");
-    System.out.println("       ____) | (_| (_) | | |  __/    | | (_| | |_) | |  __/   ");
-    System.out.println("      |_____/ \\___\\___/|_|  \\___|    |_|\\__,_|_.__/|_|\\___|   ");
-}
+    public static void losing() {
+        System.out.println(" _ _  _____                         ____                 _ _ _");
+        System.out.println("  ( | )/ ____|                       / __ \\               | ( | )");
+        System.out.println("   V V| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| |V V ");
+        System.out.println("      | | |_ |/ _` | '_ ` _ \\ / _ \\ | |  | \\ \\ / / _ \\ '__| |    ");
+        System.out.println("      | |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |  |_|    ");
+        System.out.println("       \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  (_) ");
+
+    }
+
+    public static void Score_Table() {
+        System.out.println("   _ _  _____                      _______    _     _     _ _ ");
+        System.out.println("  ( | )/ ____|                    |__   __|  | |   | |   ( | )");
+        System.out.println("   V V| (___   ___ ___  _ __ ___     | | __ _| |__ | | ___V V ");
+        System.out.println("       \\___ \\ / __/ _ \\| '__/ _ \\    | |/ _` | '_ \\| |/ _ \\   ");
+        System.out.println("       ____) | (_| (_) | | |  __/    | | (_| | |_) | |  __/   ");
+        System.out.println("      |_____/ \\___\\___/|_|  \\___|    |_|\\__,_|_.__/|_|\\___|   ");
+    }
 }

@@ -56,7 +56,7 @@ public class ResponseHandler {
         JSONObject data = new JSONObject();
         data.put("request", "move");
         data.put("game_id", game.getID());
-        data.put("game_isEnd", game.game_end());
+        data.put("game_isEnd", game.isEnd());
         data.put("game_pointer", game.get_pointer());
         data.put("game_winner_id", game.get_winner().getId());
         data.put("game_winner_username", game.get_winner().getUsername());
@@ -68,7 +68,7 @@ public class ResponseHandler {
         JSONObject data = new JSONObject();
         data.put("request", "computer_move");
         data.put("game_id", game.getID());
-        data.put("game_isEnd", game.game_end());
+        data.put("game_isEnd", game.isEnd());
         data.put("game_pointer", game.get_pointer());
         data.put("game_winner_id", game.get_winner().getId());
         data.put("game_winner_username", game.get_winner().getUsername());
@@ -82,16 +82,33 @@ public class ResponseHandler {
         data.put("request", "join");
         data.put("game_id", game.getID());
         if(game.hasPlayer2()){
-            data.put("status", "wait_player2");
-        }else{
             data.put("status", "start");
+        }else{
+            data.put("status", "wait_player2");
         }
         return data.toString();
     }
 
-	public static String notYourTurn(int game_id) {
-		return null;
-	}
+    public static String player_joined(Game game) {
+        JSONObject data = new JSONObject();
+        data.put("request", "player_joined");
+        data.put("game_id", game.getID());
+        data.put("player2_name", game.getPlayer2().getUsername());
+        return data.toString();
+    }
+
+    public static String opponent_moved(Game game, int move) {
+        JSONObject data = new JSONObject();
+        data.put("request", "opponent_moved");
+        data.put("game_id", game.getID());
+        data.put("game_isEnd", game.isEnd());
+        data.put("game_pointer", game.get_pointer());
+        data.put("game_winner_id", game.get_winner().getId());
+        data.put("game_winner_username", game.get_winner().getUsername());
+        data.put("game_turn", game.getPlayerTurn().getId());
+        data.put("opponent_steps",move);
+        return data.toString();
+    }
 
     
 }

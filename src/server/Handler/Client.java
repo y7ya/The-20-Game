@@ -37,6 +37,10 @@ public class Client {
         return this.socket;
     }
     
+    public Sender get_sender(){
+        return this.sender;
+    }
+    
     public Player get_player(){
         return this.player;
     }
@@ -49,4 +53,11 @@ public class Client {
         System.out.printf("username: %s    id: %s",this.player.getUsername(),String.valueOf(this.player.getId()));
     }
 
+    public BufferedWriter get_writer() {
+        return this.writer;
+    }
+
+    public boolean isLoggedIn(){
+        return (this.player != null);
+    }
 }

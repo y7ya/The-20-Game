@@ -5,10 +5,10 @@ import java.sql.SQLException;
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import server.App;
+import server.Handler.ResponseHandler;
 import server.player.Player;
 
 public class Game {
-   // critical section  
     private int id;
     private Player player1;
     private Player player2 = null;
@@ -16,9 +16,7 @@ public class Game {
     private int winning_score = 20;
     private int max_steps = 2;
     private int pointer = 0;
-    protected int last_player_steps = 0;
     private boolean isWithComputer = false;
-
 
     public Game(Player player1) {
         try {
@@ -31,15 +29,26 @@ public class Game {
         System.out.println(this.id);
     }
 
-    public int getID(){
+    public Player[] getPlayers() {
+        Player[] players = { player1, player1 };
+        return players;
+    }
+
+    public boolean inGame(Player player) {
+        // return (player1 == player || player2 == player);
+        return ((player1 != null && player1.getId() == player.getId())
+                || (player2 != null && player2.getId() == player.getId()));
+    }
+
+    public int getID() {
         return this.id;
     }
 
-    public void setWithComputer(){
+    public void setWithComputer() {
         this.isWithComputer = true;
     }
 
-    public boolean isWithComputer(){
+    public boolean isWithComputer() {
         return this.isWithComputer;
     }
 
@@ -48,16 +57,13 @@ public class Game {
         nextTurn();
     }
 
-    
     public int computer_move() {
-        int steps = (int)((Math.random() * (get_max_steps()))+1);
+        int steps = (int) ((Math.random() * (get_max_steps())) + 1);
         move(steps);
         return steps;
     }
 
-    
-
-    public boolean hasPlayer2(){
+    public boolean hasPlayer2() {
         return player2 != null;
     }
 
@@ -82,18 +88,8 @@ public class Game {
 
     }
 
-    protected void update_last_player_steps(int last_player_steps) {
-        this.last_player_steps = last_player_steps;
-    }
-
-    public int get_last_player_steps() {
-        return this.last_player_steps;
-    }
-
     public void setPlayer2(Player player2) {
-        try {
-            App.DB.addPlayer2(this,player2);
-        } catch (SQLException e) {}
+        App.DB.addPlayer2(this, player2);
         this.player2 = player2;
     }
 
@@ -109,7 +105,7 @@ public class Game {
         return this.winning_score;
     }
 
-    public boolean game_end() {
+    public boolean isEnd() {
         return (this.pointer >= winning_score);
     }
 
@@ -120,6 +116,27 @@ public class Game {
             return this.player2;
         }
 
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public void end(Player looser) {
+        if (this.player2 == null)
+            return;
+            this.pointer = winning_score;
+        if (player1 == looser) {
+            App.DB.setWinner(this.id, player2.getId());
+            App.client_by_player(player2).get_sender().send(ResponseHandler.moved(this, 0));
+        } else {
+            App.DB.setWinner(this.id, player1.getId());
+            App.client_by_player(player2).get_sender().send(ResponseHandler.moved(this, 0));
+        }
     }
 
 }

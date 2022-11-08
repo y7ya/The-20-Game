@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.nio.Buffer;
 
+import server.App;
+
 public class Receiver extends Thread {
     private Socket socket;
     private BufferedReader reader;
@@ -24,6 +26,13 @@ public class Receiver extends Thread {
             while ((line = reader.readLine()) != null) {
                 sender.send(RequestHandler.handleRequest(line,socket));
             }
-        }catch(IOException e){}catch(NullPointerException e){}
+        }catch(IOException | NullPointerException e){}
+        finally{
+            App.handleExit(socket);
+            try {
+                socket.close();
+            } catch (IOException e) {}
+        }
+
     }
 }

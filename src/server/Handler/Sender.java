@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class Sender {
     private Socket socket;
-    private static BufferedWriter writer;
+    private BufferedWriter writer;
 
     Sender(Socket socket, BufferedWriter writer){
         this.socket = socket;

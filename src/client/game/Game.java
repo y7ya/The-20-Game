@@ -12,7 +12,6 @@ public class Game {
     private int winning_score = 20;
     private int max_steps = 2;
     private int pointer = 0;
-    protected int last_player_steps = 0;
 
     Game(Player player1,Player Player2){
         this.player1 = player1;
@@ -48,15 +47,6 @@ public class Game {
         }
 
     }
-    
-    protected void update_last_player_steps(int last_player_steps){
-        this.last_player_steps = last_player_steps;
-    }
-
-    public int get_last_player_steps(){
-        return this.last_player_steps;
-    }
-
 
     public void setPlayer2(Player player2){
         this.player2 = player2;
