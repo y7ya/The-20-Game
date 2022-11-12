@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import client.game.PlayWithComputer;
 import server.App;
 import server.game.Game;
 import server.player.Player;
@@ -64,7 +63,7 @@ public class RequestHandler {
                     Player player = new Player(Integer.parseInt(data[0]), data[1]);
                     client.set_player(player);
                     client.print_data();
-                    return ResponseHandler.registered_successfully(player.getId());
+                    return ResponseHandler.registered_successfully(player.getId(),player.getUsername());
                 }
             }
         }
@@ -78,14 +77,14 @@ public class RequestHandler {
         String[] data = App.DB.login(username, password);
         if (data != null) {
             if (App.clientLoggedIn(username)) {
-                return ResponseHandler.error("error", "You already logged in");
+                return ResponseHandler.alreadyLoggedIn();
             }
             Client client = App.client_by_socket(socket);
             if (client != null) {
                 Player player = new Player(Integer.parseInt(data[0]), data[1]);
                 client.set_player(player);
                 client.print_data();
-                return ResponseHandler.loggedIn_successfully(player.getId());
+                return ResponseHandler.loggedIn_successfully(player.getId(),player.getUsername());
             }
         }
         return ResponseHandler.wrongCreds();
@@ -95,15 +94,13 @@ public class RequestHandler {
         Game game = null;
         switch (mood.toLowerCase().trim()) {
             case "randomly":
-                game = App.newGame("randomly", socket);
-                return ResponseHandler.game_created(game.getID());
+                game = App.addToRandomGame(socket);
+                return ResponseHandler.joinGame(game, socket);
             case "with_computer":
                 game = App.newGame("with_computer", socket);
-                return ResponseHandler.game_created(game.getID());
-            case "with_friend":
-                return "";
+                return ResponseHandler.joinGame(game,socket);
             default:
-                return "Default";
+                return ResponseHandler.error("game_mood", "invalid Game type");
         }
     }
 
@@ -120,7 +117,9 @@ public class RequestHandler {
         game.move(move);
         if (game.isEnd())
             App.end_game(game);
+        
 
+        if(game.isWithComputer())return ResponseHandler.moved(game, move);
         Client sender = App.client_by_socket(socket);
         if (sender == App.client_by_player(game.getPlayer1())) {
             App.client_by_player(game.getPlayer2()).get_sender().send(ResponseHandler.opponent_moved(game, move));
