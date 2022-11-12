@@ -1,4 +1,4 @@
-package client.network;
+package client.handler;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,15 +26,10 @@ public class Reciever extends Thread {
     @Override
     public void run() {
         String line;
-        JSONObject data;
         try {
             while (true) {
                 line = reader.readLine();
-                System.out.println(line);
-                data = new JSONObject(line);
-                if(data.getString("request").equals("join") && data.has("game_id")){
-                    App.game_id = data.getInt("game_id");
-                }
+                ResponseHandler.ResponseHandler(line);
             }
         } catch (IOException e) {}
     }

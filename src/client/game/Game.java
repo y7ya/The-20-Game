@@ -1,30 +1,33 @@
 package client.game;
 
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
-import server.player.Player;
+import client.player.Player;
 
 public class Game {
-    
-    private Player player1;
-    private Player player2;
+
+    private int id;
+    private Player opponent;
     private int turn = 1;
     private int winning_score = 20;
     private int max_steps = 2;
     private int pointer = 0;
+    private boolean isWithComputer = false;
 
-    Game(Player player1,Player Player2){
-        this.player1 = player1;
-        this.player2 = player2;
+    public Game(int id){
+        this.id = id;
+    };
+
+    public void setOpponent(Player player){
+        this.opponent = player;
     }
-
-    Game(Player player1){
-        this.player1 = player1;
-        this.player2 = null;
+    
+    public Player getOpponent(){
+        return this.opponent;
     }
 
     public void move(int steps){
         this.pointer += steps;
+        nextTurn();
     }
 
     public void nextTurn(){
@@ -39,19 +42,6 @@ public class Game {
         return this.turn;
     }
     
-    public Player getPlayerTurn(){
-        if(turn == 1){
-            return player1;
-        }else{
-            return player2;
-        }
-
-    }
-
-    public void setPlayer2(Player player2){
-        this.player2 = player2;
-    }
-
     public int get_max_steps(){
         return this.max_steps;
     }
@@ -68,13 +58,19 @@ public class Game {
         return (this.pointer >= winning_score);
     }
 
-    public Player get_winner(){
-        if(turn == 1){
-            return this.player1;
-        }else{
-            return this.player2;
-        }
-        
+    public int getId() {
+        return this.id;
     }
 
+    public void setPointer(int pointer) {
+        this.pointer = pointer;
+    }
+
+    public void setWithComputer(){
+        this.isWithComputer = true;
+    }
+
+    public boolean isWithComputer(){
+        return this.isWithComputer;
+    }
 }
