@@ -31,9 +31,10 @@ Here are some screenshots from the game
 ![Main menu](/images/p4.png)
 ![Main menu](/images/p5.png)
 ![Main menu](/images/p6.png)
+![Main menu](/images/p10.png)
 ![Main menu](/images/p7.png)
 ![Main menu](/images/p8.png)
-![Main menu](/images/p10.png)
+
 
 
 
