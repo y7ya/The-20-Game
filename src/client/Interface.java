@@ -1,9 +1,15 @@
 package client;
 
+import java.sql.Time;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 import client.game.Game;
-import client.game.PlayWithComputer;
+import client.handler.RequestHandler;
+import client.handler.Sender;
 
 public class Interface {
+    // private static int time = 1500;
 
     public static void welcome() {
         clearScreen();
@@ -16,11 +22,10 @@ public class Interface {
         System.out.println();
         System.out.println("To Start Press Anything:");
         App.input.nextLine();
-        Interface.auth();
-
+        
     }
 
-    public static void auth() {
+    public static int auth() {
         clearScreen();
         System.out.printf(
                 "\n   _ _ _______ _            ___   ___     _____                     _ _ \n  ( | )__   __| |          |__ \\ / _ \\   / ____|                   ( | )\n   V V   | |  | |__   ___     ) | | | | | |  __  __ _ _ __ ___   ___V V \n         | |  | '_ \\ / _ \\   / /| | | | | | |_ |/ _` | '_ ` _ \\ / _ \\   \n         | |  | | | |  __/  / /_| |_| | | |__| | (_| | | | | | |  __/   \n         |_|  |_| |_|\\___| |____|\\___/   \\_____|\\__,_|_| |_| |_|\\___|   \n                                                                        \n                                                                        \n\n");
@@ -31,11 +36,12 @@ public class Interface {
             System.out.println("> Enter Option Number:");
             input = App.input.nextLine();
             if (input.equals("1")) {
-                register();
-                break;
+                return 1;
             } else if (input.equals("2")) {
-                login();
-                break;
+                return 2;
+            } else if (input.equals("3")) {
+                message("Bye!");
+                System.exit(0);
             } else {
                 System.out.println("Wrong select");
             }
@@ -66,11 +72,15 @@ public class Interface {
             break;
         }
 
+        Sender.send(App.writer, RequestHandler.auth("register", username, password));
+    }
+
+    public static void message(String msg) {
         System.out.println("|============================================|");
-        System.out.println("|           Registered Successfully          |");
+        System.out.println("|           " + msg + "          |");
         System.out.println("|============================================|");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
         }
 
@@ -98,14 +108,7 @@ public class Interface {
             break;
         }
 
-        System.out.println("|============================================|");
-        System.out.println("|           Loggedin Successfully            |");
-        System.out.println("|============================================|");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
-
+        Sender.send(App.writer, RequestHandler.auth("login", username, password));
     }
 
     public static void home() {
@@ -115,44 +118,56 @@ public class Interface {
 
         System.out.printf("\t%s\n", "[1]> Play With Computer");
         System.out.printf("\t%s\n", "[2]> Join Game Randomly");
+        System.out.printf("\t%s\n", "[3]> Exit");
+
         String input;
         while (true) {
             System.out.printf("> Select Game Mood:");
             input = App.input.nextLine();
             if (input.equals("1")) {
-                break;
+                Sender.send(App.writer, RequestHandler.playWithComputer());
+                return;
+                // return Integer.parseInt(input);
             } else if (input.equals("2")) {
-                break;
+                Sender.send(App.writer, RequestHandler.joinRandomGame());
+                return;
+                // return Integer.parseInt(input);
+            } else if (input.equals("3")) {
+                message("Bye!");
+                System.exit(0);
             } else {
                 System.out.printf("\n%s\n", "Wrong select");
             }
         }
     }
 
+    public static void wait_player() {
+        clearScreen();
+        System.out.println("waiting player to join");
+    }
+
     public static void game(Game game) {
         System.out.printf(
                 "\n   _ _ _______ _            ___   ___     _____                     _ _ \n  ( | )__   __| |          |__ \\ / _ \\   / ____|                   ( | )\n   V V   | |  | |__   ___     ) | | | | | |  __  __ _ _ __ ___   ___V V \n         | |  | '_ \\ / _ \\   / /| | | | | | |_ |/ _` | '_ ` _ \\ / _ \\   \n         | |  | | | |  __/  / /_| |_| | | |__| | (_| | | | | | |  __/   \n         |_|  |_| |_|\\___| |____|\\___/   \\_____|\\__,_|_| |_| |_|\\___|   \n                                                                        \n                                                                        \n\n");
 
-        if (game.getTurn() == 1) {
-            String input;
+        loadBar(game.get_pointer());
+
+        String input;
+        if(App.game.getTurn() == 1){
             while (true) {
                 System.out.println("1 or 2 Steps? :");
                 input = App.input.nextLine();
                 if (input.equals("1") || input.equals("2")) {
-                    game.move(Integer.parseInt(input));
+                    Sender.send(App.writer, RequestHandler.move(Integer.parseInt(input)));
                     break;
                 } else {
                     System.out.println("Wrong select");
                 }
             }
-            System.out.printf("%s have played %s", game.getPlayerTurn().getUsername(), input);
-            game.nextTurn();
-        } else {
-            System.out.printf("%s has played %s", game.getPlayerTurn().getUsername(), game.get_last_player_steps());
-            game.nextTurn();
+        }else{
+            System.out.println(App.game.getOpponent().getUsername());
+            System.out.printf("It is %s's turn\n",App.game.getOpponent().getUsername());
         }
-        loadBar(game.get_pointer());
-
     }
 
     public static void loadBar(int len) {
@@ -186,6 +201,7 @@ public class Interface {
     }
 
     public static void winning() {
+        clearScreen();
         System.out.println("_ ___     __          __          __         _ _ _ ");
         System.out.println("  ( | ) \\   / /          \\ \\        / /        | ( | )");
         System.out.println("   V V \\ \\_/ /__  _   _   \\ \\  /\\  / /__  _ __ | |V V ");
@@ -193,9 +209,16 @@ public class Interface {
         System.out.println("         | | (_) | |_| |    \\  /\\  / (_) | | | |_|");
         System.out.println("         |_|\\___/ \\__,_|     \\/  \\/ \\___/|_| |_(_) ");
 
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+        }
+
+
     }
 
     public static void losing() {
+        clearScreen();
         System.out.println(" _ _  _____                         ____                 _ _ _");
         System.out.println("  ( | )/ ____|                       / __ \\               | ( | )");
         System.out.println("   V V| |  __  __ _ _ __ ___   ___  | |  | |_   _____ _ __| |V V ");
@@ -203,9 +226,15 @@ public class Interface {
         System.out.println("      | |__| | (_| | | | | | |  __/ | |__| |\\ V /  __/ |  |_|    ");
         System.out.println("       \\_____|\\__,_|_| |_| |_|\\___|  \\____/  \\_/ \\___|_|  (_) ");
 
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+        }
+
     }
 
     public static void Score_Table() {
+        clearScreen();
         System.out.println("   _ _  _____                      _______    _     _     _ _ ");
         System.out.println("  ( | )/ ____|                    |__   __|  | |   | |   ( | )");
         System.out.println("   V V| (___   ___ ___  _ __ ___     | | __ _| |__ | | ___V V ");

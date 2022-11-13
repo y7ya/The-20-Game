@@ -7,9 +7,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import org.json.JSONObject;
 import client.player.Player;
-import client.handler.Reciever;
 import client.game.Game;
+import client.handler.Reciever;
 
 public class App {
     public static Scanner input = new Scanner(System.in);
@@ -40,9 +41,17 @@ public class App {
         }
 
         new Reciever(s, reader, writer).start();
+ 
+        Interface.welcome();
+        
+        int auth = Interface.auth();
+        if(auth == 1){
+            Interface.register();
+        }else if(auth == 2){
+            Interface.login();
+        }
 
-
-    
-    
+        
     }
+
 }
