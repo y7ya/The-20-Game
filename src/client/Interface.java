@@ -165,8 +165,9 @@ public class Interface {
                 }
             }
         }else{
-            System.out.println(App.game.getOpponent().getUsername());
+            
             System.out.printf("It is %s's turn\n",App.game.getOpponent().getUsername());
+           // System.out.println(App.game.getOpponent().getUsername());
         }
     }
 
