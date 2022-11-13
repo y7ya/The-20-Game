@@ -52,7 +52,7 @@ public class RequestHandler {
     }
 
     private static String registerHandler(String username, String password, Socket socket) {
-        if (username == "computer")
+        if (username.equalsIgnoreCase("computer"))
             return ResponseHandler.wrongCreds();
         if (App.DB.username_exist(username))
             return ResponseHandler.username_exist();
@@ -71,7 +71,7 @@ public class RequestHandler {
     }
 
     private static String loginHandler(String username, String password, Socket socket) {
-        if (username == "computer")
+        if (username.equalsIgnoreCase("computer"))
             return ResponseHandler.wrongCreds();
 
         String[] data = App.DB.login(username, password);
