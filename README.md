@@ -18,5 +18,9 @@ Here is our ER-diagram :
 
 ![Main menu](/images/ER.png)
 
+## Class diagram
+Here our Client & Server Classes:
+![Main menu](/images/Client.png)
+![Main menu](/images/Server.png)
 
 
