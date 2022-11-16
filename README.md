@@ -36,5 +36,13 @@ Here are some screenshots from the game
 ![Main menu](/images/p8.png)
 
 
+## Database
+
+Here our database:
+
+[20game.zip](https://github.com/y7ya/cpit305-course-project/files/10024776/20game.zip)
+
+
+
 
 
