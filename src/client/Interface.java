@@ -128,11 +128,9 @@ public class Interface {
             if (input.equals("1")) {
                 Sender.send(App.writer, RequestHandler.playWithComputer());
                 return;
-                // return Integer.parseInt(input);
             } else if (input.equals("2")) {
                 Sender.send(App.writer, RequestHandler.joinRandomGame());
                 return;
-                // return Integer.parseInt(input);
             } else if (input.equals("3")) {
                 message("Bye!");
                 System.exit(0);

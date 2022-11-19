@@ -59,7 +59,6 @@ public class ResponseHandler {
             } else {
                 Interface.winning();
                 Interface.home();
-
             }
         }
     }

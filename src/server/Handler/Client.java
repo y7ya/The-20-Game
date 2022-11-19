@@ -53,7 +53,6 @@ public class Client {
 
     public void closeStreams(){
         try {
-            System.out.println("Close streams of:" + player.getUsername());
             socket.close();
             reader.close();
             writer.close();    

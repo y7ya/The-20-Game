@@ -119,9 +119,10 @@ public class Game {
     }
 
     public void end(Player looser) {
-        if (this.player2 == null)
+        if (this.player2 == null){
             return;
-            this.pointer = winning_score;
+        }
+        this.pointer = winning_score;
         if (player1 == looser) {
             App.DB.setWinner(this.id, player2.getId());
             App.client_by_player(player2).get_sender().send(ResponseHandler.moved(this, 0));

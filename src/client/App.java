@@ -50,8 +50,6 @@ public class App {
         }else if(auth == 2){
             Interface.login();
         }
-
-        
     }
 
 }

@@ -20,11 +20,11 @@ public class App {
     public static ArrayList<Game> games = new ArrayList<>();
     public static Database DB;
 
-    public static boolean clientLoggedIn(String usernmae) {
+    public static boolean clientLoggedIn(String username) {
         for (Client client : clients) {
             if (client.get_player() == null)
                 continue;
-            if (client.get_player().getUsername().equals(usernmae))
+            if (client.get_player().getUsername().equals(username))
                 return true;
         }
         return false;
@@ -102,7 +102,6 @@ public class App {
                 g.end(cl.get_player());
                 itr_games.remove();
             }
-
         }
         // remove client from clients array
         Client c;

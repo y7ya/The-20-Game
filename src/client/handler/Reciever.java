@@ -33,7 +33,6 @@ public class Reciever extends Thread {
                 reader.close();
                 writer.close();
                 socket.close();
-                System.out.println("Close streams");
             } catch (IOException e) {}
         }
     }
