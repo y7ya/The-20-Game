@@ -26,6 +26,15 @@ public class Reciever extends Thread {
                 line = reader.readLine();
                 ResponseHandler.ResponseHandler(line);
             }
-        } catch (IOException e) {}
+        } catch (IOException e) {
+
+        }finally{
+            try {
+                reader.close();
+                writer.close();
+                socket.close();
+                System.out.println("Close streams");
+            } catch (IOException e) {}
+        }
     }
 }

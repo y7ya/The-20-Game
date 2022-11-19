@@ -53,14 +53,12 @@ public class Interface {
         String username;
         String password;
 
-        // TODO: name validation
         while (true) {
             System.out.printf("> Enter Your username:");
             username = App.input.nextLine();
             break;
         }
 
-        // TODO: password validation
         while (true) {
             System.out.printf("> Enter Your password:");
             password = App.input.nextLine();

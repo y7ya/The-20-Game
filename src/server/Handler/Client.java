@@ -50,4 +50,13 @@ public class Client {
     public boolean isLoggedIn(){
         return (this.player != null);
     }
+
+    public void closeStreams(){
+        try {
+            System.out.println("Close streams of:" + player.getUsername());
+            socket.close();
+            reader.close();
+            writer.close();    
+        } catch (IOException e) {}
+        }
 }

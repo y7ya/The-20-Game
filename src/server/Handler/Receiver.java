@@ -1,6 +1,7 @@
 package server.Handler;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Writer;
 import java.net.Socket;
 
 import server.App;
@@ -25,10 +26,8 @@ public class Receiver extends Thread {
             }
         }catch(IOException | NullPointerException e){}
         finally{
+            App.client_by_socket(socket).closeStreams();
             App.handleExit(socket);
-            try {
-                socket.close();
-            } catch (IOException e) {}
         }
 
     }
