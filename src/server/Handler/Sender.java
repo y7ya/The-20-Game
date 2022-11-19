@@ -15,7 +15,7 @@ public class Sender {
 
     public void send(String line){
         try {
-            writer.write(line); // String
+            writer.write(line);
             writer.newLine();
             writer.flush();
         } catch (IOException e) {}        

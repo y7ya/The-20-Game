@@ -1,15 +1,10 @@
 package client;
 
-import java.sql.Time;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-
 import client.game.Game;
 import client.handler.RequestHandler;
 import client.handler.Sender;
 
 public class Interface {
-    // private static int time = 1500;
 
     public static void welcome() {
         clearScreen();
@@ -76,9 +71,17 @@ public class Interface {
     }
 
     public static void message(String msg) {
-        System.out.println("|============================================|");
-        System.out.println("|           " + msg + "          |");
-        System.out.println("|============================================|");
+        System.out.print("|==");
+        for (int i = 0; i < msg.length(); i++) {
+            System.out.print("=");
+        }
+        System.out.println("==|");
+        System.out.println("|  " + msg + "  |");
+        System.out.print("|==");
+        for (int i = 0; i < msg.length(); i++) {
+            System.out.print("=");
+        }
+        System.out.println("==|");
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
@@ -147,6 +150,7 @@ public class Interface {
     }
 
     public static void game(Game game) {
+        clearScreen();
         System.out.printf(
                 "\n   _ _ _______ _            ___   ___     _____                     _ _ \n  ( | )__   __| |          |__ \\ / _ \\   / ____|                   ( | )\n   V V   | |  | |__   ___     ) | | | | | |  __  __ _ _ __ ___   ___V V \n         | |  | '_ \\ / _ \\   / /| | | | | | |_ |/ _` | '_ ` _ \\ / _ \\   \n         | |  | | | |  __/  / /_| |_| | | |__| | (_| | | | | | |  __/   \n         |_|  |_| |_|\\___| |____|\\___/   \\_____|\\__,_|_| |_| |_|\\___|   \n                                                                        \n                                                                        \n\n");
 
@@ -165,7 +169,6 @@ public class Interface {
                 }
             }
         }else{
-            System.out.println(App.game.getOpponent().getUsername());
             System.out.printf("It is %s's turn\n",App.game.getOpponent().getUsername());
         }
     }

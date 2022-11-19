@@ -1,15 +1,10 @@
 package server.db;
 
-import java.net.ContentHandlerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.Statement;
-
-import server.App;
 import server.game.Game;
 import server.player.Player;
 

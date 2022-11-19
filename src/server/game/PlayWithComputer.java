@@ -1,6 +1,5 @@
 package server.game;
 
-import server.*;
 import server.player.Computer;
 import server.player.Player;
 

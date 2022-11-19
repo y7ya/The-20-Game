@@ -4,11 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.Buffer;
-
-import org.json.JSONObject;
-
-import client.App;
 
 public class Reciever extends Thread {
     

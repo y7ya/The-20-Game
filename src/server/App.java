@@ -5,11 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
-import javax.swing.text.AbstractDocument.Content;
-import javax.xml.crypto.Data;
-
 import server.Handler.Client;
 import server.Handler.ResponseHandler;
 import server.game.Game;
@@ -92,24 +87,6 @@ public class App {
         App.DB.setWinner(game.getID(), game.getPlayerTurn().getId());
     }
 
-    public static void main(String[] args) {
-        DB = new Database();
-
-        try {
-            serverSocket = new ServerSocket(PORT);
-        } catch (IOException e) {
-        }
-
-        while (true) {
-            try {
-                Socket socket = serverSocket.accept();
-                clients.add(new Client(socket));
-            } catch (IOException e) {
-            }
-
-        }
-    }
-
     public static void handleExit(Socket socket) {
         Client cl = client_by_socket(socket);
         if (cl == null)
@@ -137,4 +114,21 @@ public class App {
         }
     }
 
+    public static void main(String[] args) {
+        DB = new Database();
+
+        try {
+            serverSocket = new ServerSocket(PORT);
+        } catch (IOException e) {
+        }
+
+        while (true) {
+            try {
+                Socket socket = serverSocket.accept();
+                clients.add(new Client(socket));
+            } catch (IOException e) {
+            }
+
+        }
+    }
 }

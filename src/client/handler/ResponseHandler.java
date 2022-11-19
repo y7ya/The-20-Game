@@ -1,7 +1,5 @@
 package client.handler;
 
-import java.lang.ref.Cleaner;
-
 import org.json.JSONObject;
 
 import client.App;
@@ -47,9 +45,6 @@ public class ResponseHandler {
                     Sender.send(App.writer, RequestHandler.computer_move());
                 }
             } else {
-                // game end
-                // winner or looser
-                // looser
                 Interface.losing();
                 Interface.home();
             }
@@ -62,9 +57,6 @@ public class ResponseHandler {
                 App.game.move(data.getInt("opponent_steps"));
                 Interface.game(App.game);
             } else {
-                // game end
-                // winner or looser
-                // winner
                 Interface.winning();
                 Interface.home();
 
@@ -120,7 +112,15 @@ public class ResponseHandler {
             Interface.home();
             return;
         } else if (data.getString("message").equals("username_exist")) {
-            Interface.message("Username is alreadu exist");
+            Interface.message("Username is already exist");
+        } else if (data.getString("message").equals("length_more_than1_less_than50")) {
+            Interface.message("Username length should be more than 1 and less than 50");
+        } else if (data.getString("message").equals("english_numbers_only")) {
+            Interface.message("Username should be english letters and numbers only");
+        } else if (data.getString("message").equals("pass_too_short")) {
+            Interface.message("password should be more than 6 char");
+        } else if (data.getString("message").equals("pass_too_long")) {
+            Interface.message("password should be less than 6 char");
         }
         Interface.register();
     }

@@ -1,9 +1,5 @@
 package server.game;
 
-import java.sql.SQLException;
-
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-
 import server.App;
 import server.Handler.ResponseHandler;
 import server.player.Player;
@@ -23,10 +19,7 @@ public class Game {
             this.id = App.DB.newGame(player1);
             this.player1 = player1;
             this.player2 = null;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(this.id);
+        } catch (Exception e) {}
     }
 
     public Player[] getPlayers() {
@@ -35,7 +28,6 @@ public class Game {
     }
 
     public boolean inGame(Player player) {
-        // return (player1 == player || player2 == player);
         return ((player1 != null && player1.getId() == player.getId())
                 || (player2 != null && player2.getId() == player.getId()));
     }

@@ -1,10 +1,8 @@
 package server.Handler;
 
 import java.net.Socket;
-import java.sql.SQLException;
-
+import java.util.regex.Pattern;
 import org.json.JSONObject;
-
 import server.App;
 import server.game.Game;
 import server.player.Player;
@@ -14,7 +12,6 @@ public class RequestHandler {
     public static String handleRequest(String line, Socket socket) {
         JSONObject data = new JSONObject(line);
 
-        // make sure that player logged in
         if (!App.client_by_socket(socket).isLoggedIn() && !(data.getString("request").toLowerCase().equals("login")
                 || data.getString("request").toLowerCase().equals("register")))
             return ResponseHandler.error("error", "login first");
@@ -36,8 +33,7 @@ public class RequestHandler {
                 return score_table();
 
             default:
-                System.out.println("default");
-                return "Command not found";
+                return ResponseHandler.error("error", "command not found");
         }
     }
 
@@ -54,6 +50,12 @@ public class RequestHandler {
     private static String registerHandler(String username, String password, Socket socket) {
         if (username.equalsIgnoreCase("computer"))
             return ResponseHandler.wrongCreds();
+        
+        if(username.length() < 2 || username.length() > 50) return ResponseHandler.error("register", "length_more_than1_less_than50");
+        if(!Pattern.matches("[a-zA-Z0-9]+", username)) return ResponseHandler.error("register", "english_numbers_only");  
+        if(password.length() < 6) return ResponseHandler.error("register", "pass_too_short");
+        if(password.length() > 55) return ResponseHandler.error("register", "pass_too_long");
+
         if (App.DB.username_exist(username))
             return ResponseHandler.username_exist();
         String[] data = App.DB.register(username, password);
@@ -62,8 +64,7 @@ public class RequestHandler {
                 if (client.get_socket() == socket) {
                     Player player = new Player(Integer.parseInt(data[0]), data[1]);
                     client.set_player(player);
-                    client.print_data();
-                    return ResponseHandler.registered_successfully(player.getId(),player.getUsername());
+                    return ResponseHandler.registered_successfully(player.getId(), player.getUsername());
                 }
             }
         }
@@ -83,8 +84,7 @@ public class RequestHandler {
             if (client != null) {
                 Player player = new Player(Integer.parseInt(data[0]), data[1]);
                 client.set_player(player);
-                client.print_data();
-                return ResponseHandler.loggedIn_successfully(player.getId(),player.getUsername());
+                return ResponseHandler.loggedIn_successfully(player.getId(), player.getUsername());
             }
         }
         return ResponseHandler.wrongCreds();
@@ -98,7 +98,7 @@ public class RequestHandler {
                 return ResponseHandler.joinGame(game, socket);
             case "with_computer":
                 game = App.newGame("with_computer", socket);
-                return ResponseHandler.joinGame(game,socket);
+                return ResponseHandler.joinGame(game, socket);
             default:
                 return ResponseHandler.error("game_mood", "invalid Game type");
         }
@@ -117,9 +117,9 @@ public class RequestHandler {
         game.move(move);
         if (game.isEnd())
             App.end_game(game);
-        
 
-        if(game.isWithComputer())return ResponseHandler.moved(game, move);
+        if (game.isWithComputer())
+            return ResponseHandler.moved(game, move);
         Client sender = App.client_by_socket(socket);
         if (sender == App.client_by_player(game.getPlayer1())) {
             App.client_by_player(game.getPlayer2()).get_sender().send(ResponseHandler.opponent_moved(game, move));
